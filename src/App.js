@@ -7,6 +7,7 @@ import {Home} from './components/Home';
 import {Welcome} from './components/Welcome';
 import Login from './components/Login'
 import useUser from './hooks/use-user'
+import Registartion from './components/Registration'
 
 
 
@@ -78,7 +79,7 @@ function App() {
               <Link to="/welcome">Welcome</Link>
             </li>
             <li>
-              <Link to="/registartion">Reg</Link>
+              <Link to="/registration">Reg</Link>
             </li>
             <li>
               { isLogin ? (
@@ -98,6 +99,7 @@ function App() {
             <Welcome name={user.name} />
           </WithAuth>
         </Route>
+        <Route path="/registration" component={Registartion}/>
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
