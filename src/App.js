@@ -6,8 +6,11 @@ import { BrowserRouter as Router, useHistory, Route, Switch, Link } from 'react-
 import {Home} from './components/Home';
 import {Welcome} from './components/Welcome';
 import Login from './components/Login'
+import Users from './components/Users'
 import useUser from './hooks/use-user'
 import Registartion from './components/Registration'
+import CreateUser from './components/CreateUser';
+import EditUser from './components/EditUser';
 
 
 
@@ -79,8 +82,16 @@ function App() {
               <Link to="/welcome">Welcome</Link>
             </li>
             <li>
+              <Link to="/users">Users</Link>
+            </li>
+            <li>
+              <Link to="/users/create">Create New User</Link>
+            </li>
+            { isLogin ? null :
+            <li>
               <Link to="/registration">Reg</Link>
             </li>
+            }
             <li>
               { isLogin ? (
                 <button onClick={onLogout}>Logout</button>
@@ -99,6 +110,9 @@ function App() {
             <Welcome name={user.name} />
           </WithAuth>
         </Route>
+        <Route exact path="/users" component={Users}/>
+        <Route exact path="/users/create" component={CreateUser}/>
+        <Route path="/users/create/edit/:id" component={EditUser}/>
         <Route path="/registration" component={Registartion}/>
         <Route path="*" component={NotFound} />
       </Switch>

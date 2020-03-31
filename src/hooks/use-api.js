@@ -16,8 +16,31 @@ const useApi = () => {
     })
   }, [token])
 
+  const findUser = React.useCallback((id) => {
+    return fetch(`${endPoint}/users/find/${id}`, {
+      method: 'get',
+      headers: {
+        // 'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json' 
+      },
+    })
+  }, [token])
+
+  const updateUser = React.useCallback(({ id, ...rest}) => {
+    return fetch(`${endPoint}/users/update/${id}`, {
+      method: 'post',
+      body: JSON.stringify(rest),
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json' 
+      },
+    })
+  }, [token])
+
   return {
-    allUser
+    allUser,
+    findUser,
+    updateUser
   }
 }
 

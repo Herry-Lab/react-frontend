@@ -1,0 +1,66 @@
+  React.useEffect(() => {
+   
+    const fun1 = (id) => {
+      return new Promise((resolve, reject) => {
+        if(id < 4) {
+          reject('less than 4')
+        }
+        else {
+          api call (4).then( val => {
+             resolve(val)
+          })
+        }
+        setTimeout(() => {
+          console.log('fn1')
+          resolve(3)
+          // reject('errrrro')
+        }, 3000)
+      })
+    }
+
+    const fun2 = (id) => {
+      console.log('fn2', id)
+      return 456;
+    }
+
+    const fun3 = (id) => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log('fn3', id)
+          resolve(2)
+          // reject('errrrro')
+        }, 2000)
+      })
+   }
+
+
+    // fun1().then((id) => { 
+    //   fun3(id).then((id) => { fun2(id) } )
+    // }).catch((e) => { 
+    //   console.log(e) 
+    // });
+
+    
+
+    const test = async () => {
+      const fn1v = await fun1(4).catch(e => console.log(e))
+      if(fn1v) {
+        
+      }
+      const fn3v = await fun3(fn1v)
+      const val = fun2(fn3v)       
+      return val
+    }
+
+    const newtest = async () => {
+      const cc = await test()
+      console.log(cc)
+    } 
+
+    newtest()
+
+    
+    
+
+  },[])
+  
