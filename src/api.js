@@ -33,16 +33,18 @@ export const loggedIn = (token) => {
   })
 }
 
-export const register = (name,email,password) => {
-  const body = { 
-    name,
-    email,
-    password
-  }
+export const register = ({name,email,password,img}) => {
+  const formData = new FormData()
+  formData.append('image', img)
+  formData.append('name', name)
+  formData.append('email', email)
+  formData.append('password', password)
+
   return fetch('http://localhost:3000/users/', {
     method: 'post',
-    body:    JSON.stringify(body),
-    headers: { 'Content-Type': 'application/json' },
+    body: formData
+    //body:    JSON.stringify(body),
+    //headers: { 'Content-Type': 'application/json' },
   })
 }
 
@@ -57,13 +59,14 @@ export const allUser = (token) => {
   })
 }
 
-export const deleteUser = (id) => {
-  const body = {
-    id: id
-  }
+export const deleteUser = (user) => {
+  // const formData = new FormData()
+  // formData.append('image', img)
+  // formData.append('id',id)
   return fetch('http://localhost:3000/users/delete',{
     method : 'post',
-    body : JSON.stringify(body),
+    // body: formData,
+    body : JSON.stringify(user),
     headers : {'Content-Type': 'application/json'}
   })
 }

@@ -17,18 +17,18 @@ const Users = () => {
         setLoading(true);
           allUser().then((res) => res.json()).then((response) => {
             console.log(response)
-            const users = response.map((item)=>({id:item._id,name:item.name,email:item.email}))
+            const users = response.map((item)=>({id:item._id,name:item.name,email:item.email,img: item.img}))
           setAllData(users)
           setLoading(false);
         })
       },[])
 
-      const onDelete = (id) => {
+      const onDelete = (user) => {
         setLoading(true);
-          deleteUser(id).then((res) => res.json()).then((response) => {
+          deleteUser(user).then((res) => res.json()).then((response) => {
             console.log(response)
             setAllData((oldData) => {
-              const newState = oldData.filter( item => item.id !== id)
+              const newState = oldData.filter( item => item.id !== user.id)
               return newState
             })
             setLoading(false);
@@ -64,8 +64,9 @@ const Users = () => {
         <td>{user.id}</td>
         <td>{user.name}</td>
         <td>{user.email}</td>
+        <td><img height="100"  width="100" src={`http://localhost:3000/public/${user.img}`} /></td>
         <td><Link to={`/users/create/edit/${user.id}`} >EDIT</Link></td>
-        <td><button type="button" onClick={()=>{onDelete(user.id)}}>DELETE</button></td>
+        <td><button type="button" onClick={()=>{onDelete(user)}}>DELETE</button></td>
       </tr>
       ) 
       :null

@@ -1,6 +1,7 @@
 import React,{ useState, Children } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './Formik.css';
 import { login ,logout,loggedIn } from './api';
 import { BrowserRouter as Router, useHistory, Route, Switch, Link } from 'react-router-dom';
 import {Home} from './components/Home';
@@ -11,7 +12,8 @@ import useUser from './hooks/use-user'
 import Registartion from './components/Registration'
 import CreateUser from './components/CreateUser';
 import EditUser from './components/EditUser';
-
+import FormikForm from './components/FormikForm';
+import Error from './components/Error';
 
 
 const NotFound = () => {
@@ -49,7 +51,13 @@ function App() {
   React.useEffect(() => {
     const token = localStorage.getItem('localToken');
     if(token){      
-      setUserLoading(true)
+      // setUserLoading(true)
+      setUser({
+        name: 'hite',
+        email: 'hite@admin.com',
+        token
+      })
+      setUserLoading(false)
       loggedIn(token).then(res => res.json()).then((response) => {
         const {name,email} = response;
         setUser({
@@ -101,7 +109,10 @@ function App() {
           </ul>
         </nav>
       <Switch>
+        <Route>
         <Route exact path="/" component={Home} />
+        <Route exact path="/" component={(FormikForm)} />
+        </Route>
         <Route path="/login">
           <Login />
         </Route>
